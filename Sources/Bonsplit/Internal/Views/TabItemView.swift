@@ -340,13 +340,17 @@ struct TabItemView: View {
         contextButton("Close Other Tabs", action: .closeOthers)
             .disabled(!contextMenuState.canCloseOthers)
 
-        contextButton("Move Tab…", action: .move)
+        if contextMenuState.showMoveTabAction {
+            contextButton("Move Tab…", action: .move)
+        }
 
         Divider()
 
         contextButton("New Terminal Tab to Right", action: .newTerminalToRight)
 
-        contextButton("New Browser Tab to Right", action: .newBrowserToRight)
+        if contextMenuState.showNewBrowserButton {
+            contextButton("New Browser Tab to Right", action: .newBrowserToRight)
+        }
 
         if contextMenuState.isBrowser {
             Divider()

@@ -42,6 +42,8 @@ struct TabContextMenuState {
     let canCloseOthers: Bool
     let isZoomed: Bool
     let hasSplits: Bool
+    let showNewBrowserButton: Bool
+    let showMoveTabAction: Bool
     let shortcuts: [TabContextAction: KeyboardShortcut]
 
     var canMarkAsUnread: Bool {
@@ -312,6 +314,8 @@ struct TabBarView: View {
             canCloseOthers: canCloseOthers,
             isZoomed: splitViewController.zoomedPaneId == pane.id,
             hasSplits: splitViewController.rootNode.allPaneIds.count > 1,
+            showNewBrowserButton: appearance.showNewBrowserButton,
+            showMoveTabAction: appearance.showMoveTabAction,
             shortcuts: controller.contextMenuShortcuts
         )
     }
@@ -453,14 +457,16 @@ struct TabBarView: View {
             .buttonStyle(SplitActionButtonStyle(appearance: appearance))
             .help(tooltips.newTerminal)
 
-            Button {
-                controller.requestNewTab(kind: "browser", inPane: pane.id)
-            } label: {
-                Image(systemName: "globe")
-                    .font(.system(size: 12))
+            if appearance.showNewBrowserButton {
+                Button {
+                    controller.requestNewTab(kind: "browser", inPane: pane.id)
+                } label: {
+                    Image(systemName: "globe")
+                        .font(.system(size: 12))
+                }
+                .buttonStyle(SplitActionButtonStyle(appearance: appearance))
+                .help(tooltips.newBrowser)
             }
-            .buttonStyle(SplitActionButtonStyle(appearance: appearance))
-            .help(tooltips.newBrowser)
 
             Button {
                 // 120fps animation handled by SplitAnimator

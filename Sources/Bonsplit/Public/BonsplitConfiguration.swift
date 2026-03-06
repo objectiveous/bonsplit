@@ -172,6 +172,12 @@ extension BonsplitConfiguration {
         /// Tooltip text for the tab bar's right-side action buttons
         public var splitButtonTooltips: SplitButtonTooltips
 
+        /// Whether to show the new-browser action in pane chrome and context menus.
+        public var showNewBrowserButton: Bool
+
+        /// Whether to show the move-tab action in tab context menus.
+        public var showMoveTabAction: Bool
+
         // MARK: - Animations
 
         /// Duration of animations
@@ -213,6 +219,8 @@ extension BonsplitConfiguration {
             minimumPaneHeight: CGFloat = 100,
             showSplitButtons: Bool = true,
             splitButtonTooltips: SplitButtonTooltips = .default,
+            showNewBrowserButton: Bool = true,
+            showMoveTabAction: Bool = true,
             animationDuration: Double = 0.15,
             enableAnimations: Bool = true,
             chromeColors: ChromeColors = .init()
@@ -225,6 +233,8 @@ extension BonsplitConfiguration {
             self.minimumPaneHeight = minimumPaneHeight
             self.showSplitButtons = showSplitButtons
             self.splitButtonTooltips = splitButtonTooltips
+            self.showNewBrowserButton = showNewBrowserButton
+            self.showMoveTabAction = showMoveTabAction
             self.animationDuration = animationDuration
             self.enableAnimations = enableAnimations
             self.chromeColors = chromeColors
