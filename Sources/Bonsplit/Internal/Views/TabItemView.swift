@@ -340,13 +340,17 @@ struct TabItemView: View {
         contextButton("Close Other Tabs", action: .closeOthers)
             .disabled(!contextMenuState.canCloseOthers)
 
-        contextButton("Move Tab…", action: .move)
+        if contextMenuState.showMoveTabAction {
+            contextButton("Move Tab…", action: .move)
+        }
 
         Divider()
 
         contextButton("New Terminal Tab to Right", action: .newTerminalToRight)
 
-        contextButton("New Browser Tab to Right", action: .newBrowserToRight)
+        if contextMenuState.showNewBrowserButton {
+            contextButton("New Browser Tab to Right", action: .newBrowserToRight)
+        }
 
         if contextMenuState.isBrowser {
             Divider()
@@ -397,10 +401,11 @@ struct TabItemView: View {
 
     @ViewBuilder
     private var tabBackground: some View {
+        let cr = TabBarMetrics.tabCornerRadius
         ZStack(alignment: .top) {
-            // Background fill (hover)
-            if TabItemStyling.shouldShowHoverBackground(isHovered: isHovered, isSelected: isSelected) {
-                Rectangle()
+            // Background fill (hover or selected)
+            if isSelected || TabItemStyling.shouldShowHoverBackground(isHovered: isHovered, isSelected: isSelected) {
+                RoundedRectangle(cornerRadius: cr, style: .continuous)
                     .fill(TabBarColors.hoveredTabBackground(for: appearance))
             } else {
                 Color.clear
@@ -408,17 +413,22 @@ struct TabItemView: View {
 
             // Top accent indicator for selected tab
             if isSelected {
-                Rectangle()
-                    .fill(Color.accentColor)
-                    .frame(height: TabBarMetrics.activeIndicatorHeight)
+                VStack(spacing: 0) {
+                    RoundedRectangle(cornerRadius: cr, style: .continuous)
+                        .fill(Color.accentColor)
+                        .frame(height: TabBarMetrics.activeIndicatorHeight)
+                    Spacer()
+                }
             }
 
-            // Right border separator
-            HStack {
-                Spacer()
-                Rectangle()
-                    .fill(TabBarColors.separator(for: appearance))
-                    .frame(width: 1)
+            // Right border separator (only when not rounded)
+            if cr == 0 {
+                HStack {
+                    Spacer()
+                    Rectangle()
+                        .fill(TabBarColors.separator(for: appearance))
+                        .frame(width: 1)
+                }
             }
         }
     }

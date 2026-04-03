@@ -12,7 +12,7 @@ enum TabBarMetrics {
     static let tabHeight: CGFloat = 30
     static let tabMinWidth: CGFloat = 48
     static let tabMaxWidth: CGFloat = 220
-    static let tabCornerRadius: CGFloat = 0
+    static let tabCornerRadius: CGFloat = 8
     static let tabHorizontalPadding: CGFloat = 6
     static let tabSpacing: CGFloat = 0
     static let activeIndicatorHeight: CGFloat = 2
