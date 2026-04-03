@@ -465,10 +465,8 @@ struct TabBarView: View {
                         .font(.system(size: 12))
                 }
                 .buttonStyle(SplitActionButtonStyle(appearance: appearance))
-                .help(tooltips.newBrowser)
+                .safeHelp(tooltips.newBrowser)
             }
-            .buttonStyle(SplitActionButtonStyle(appearance: appearance))
-            .safeHelp(tooltips.newBrowser)
 
             Button {
                 // 120fps animation handled by SplitAnimator
