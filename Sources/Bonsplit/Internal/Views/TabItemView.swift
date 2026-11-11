@@ -111,12 +111,12 @@ struct TabItemView: View {
                     globeFallbackWorkItem?.cancel()
                     globeFallbackWorkItem = nil
                 }
-                .onChange(of: tab.isLoading) { _ in updateGlobeFallback() }
-                .onChange(of: tab.iconImageData) { _ in
+                .onChange(of: tab.isLoading) { updateGlobeFallback() }
+                .onChange(of: tab.iconImageData) {
                     updateRenderedFaviconImage()
                     updateGlobeFallback()
                 }
-                .onChange(of: tab.icon) { _ in updateGlobeFallback() }
+                .onChange(of: tab.icon) { updateGlobeFallback() }
 
                 Text(tab.title)
                     .font(.system(size: TabBarMetrics.titleFontSize))

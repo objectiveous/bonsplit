@@ -17,7 +17,9 @@ let package = Package(
         .target(
             name: "Bonsplit",
             dependencies: [],
-            path: "Sources/Bonsplit"
+            path: "Sources/Bonsplit",
+            // GammaCore re-exports Bonsplit to independently built plugins.
+            swiftSettings: [.unsafeFlags(["-enable-library-evolution", "-emit-module-interface"])]
         ),
         .testTarget(
             name: "BonsplitTests",
